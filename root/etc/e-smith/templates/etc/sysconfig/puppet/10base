@@ -1,0 +1,14 @@
+# The puppetmaster server
+{
+   my $server = $puppet{'server'} || 'puppet.nethesis.it';
+   my $port = $puppet{'port'} || '8140';
+   $OUT.="PUPPET_SERVER=$server\n";
+   $OUT.="PUPPET_PORT=$port\n";
+ 
+   my $id = $nethupdate{'SystemID'} || $SystemName.".".DomainName;
+   # You may specify other parameters to the puppet client here
+   $OUT.="PUPPET_EXTRA_OPTS=--certname $id\n";
+}
+
+# Where to log to. Specify syslog to send log messages to the system log.
+#PUPPET_LOG=/var/log/puppet/puppet.log

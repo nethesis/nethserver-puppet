@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+use esmith::Build::CreateLinks  qw(:all);
+use File::Path;
+
+#--------------------------------------------------
+# actions for user-create event nethserver-puppet-update
+#--------------------------------------------------
+$event = "nethserver-puppet-update";
+event_templates('nethserver-base-update', "/etc/sysconfig/puppet")
+safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/puppet");
+
+
+exit 0;
+
