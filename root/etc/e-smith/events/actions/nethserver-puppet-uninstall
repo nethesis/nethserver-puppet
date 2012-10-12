@@ -1,0 +1,6 @@
+#!/usr/bin/perl
+
+use strict;
+use NethServer::Service;
+NethServer::Service::manage_remove('nethserver-puppet', 'puppet');
+

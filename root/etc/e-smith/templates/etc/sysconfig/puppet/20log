@@ -1,0 +1,2 @@
+# Where to log to. Specify syslog to send log messages to the system log.
+#PUPPET_LOG=/var/log/puppet/puppet.log

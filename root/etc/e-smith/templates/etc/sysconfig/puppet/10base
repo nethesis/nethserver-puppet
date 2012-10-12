@@ -5,10 +5,6 @@
    $OUT.="PUPPET_SERVER=$server\n";
    $OUT.="PUPPET_PORT=$port\n";
  
-   my $id = $nethupdate{'SystemID'} || $SystemName.".".DomainName;
-   # You may specify other parameters to the puppet client here
-   $OUT.="PUPPET_EXTRA_OPTS=--certname $id\n";
+   my $id = $nethupdate{'SystemID'} || $SystemName.".".$DomainName;
+   $OUT.="PUPPET_EXTRA_OPTS=\"--certname $id &>/dev/null\"\n"; #redirect to dev null: hack to avoid action-services hang
 }
-
-# Where to log to. Specify syslog to send log messages to the system log.
-#PUPPET_LOG=/var/log/puppet/puppet.log
