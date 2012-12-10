@@ -1,0 +1,43 @@
+Name:		nethserver-puppet
+Version:	@@VERSION@@
+Release:	@@RELEASE@@%{?dist}	
+Summary:	NethServer puppet agent configuration	
+
+License:	GPLv3
+URL:		http://dev.nethesis.it/projects/%{name}
+Source: 	%{name}-%{version}.tar.gz
+
+Requires:	puppet
+
+BuildRequires:	nethserver-devtools
+BuildArch:	noarch
+
+%description
+NethServer puppet agent configuration
+
+%prep
+%setup
+
+%build
+perl createlinks
+
+%install
+(cd root   ; find . -depth -print  | cpio -dump $RPM_BUILD_ROOT)
+/sbin/e-smith/genfilelist $RPM_BUILD_ROOT > %{name}-%{version}-%{release}-filelist
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+if [ $1 = 1 ]; then
+    /etc/e-smith/events/actions/initialize-default-databases
+fi
+/sbin/e-smith/signal-event %{name}-update
+
+%files -f %{name}-%{version}-%{release}-filelist
+
+
+%changelog
+* Fri Oct 12 2012 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 0.0.1-1
+- First release
+
